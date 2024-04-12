@@ -23,6 +23,9 @@ type RecordHandler struct {
 	Service service.IRecordService
 }
 
+// CreateRecord create a new record
+//
+//	request body: model.RecordRequest
 func (h *Handler) CreateRecord(c *gin.Context) {
 	var request model.RecordRequest
 	if err := c.BindJSON(&request); err != nil {
@@ -43,6 +46,9 @@ func (h *Handler) CreateRecord(c *gin.Context) {
 	response.JSON(c, base.Success(http.StatusCreated))
 }
 
+// GetRecord retrieves a record with the specified ID.
+//
+//	request param (path): id
 func (h *Handler) GetRecord(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
@@ -62,6 +68,9 @@ func (h *Handler) GetRecord(c *gin.Context) {
 	}))
 }
 
+// GetRecord allows you to search for records based on specified criteria.
+//
+//	request body: model.RecordFilterRequest
 func (h *Handler) SearchRecords(c *gin.Context) {
 	var request model.RecordFilterRequest
 	if err := c.BindJSON(&request); err != nil {
@@ -86,6 +95,10 @@ func (h *Handler) SearchRecords(c *gin.Context) {
 	}))
 }
 
+// UpsertRecord update a record with the specified ID or create a record if not exist.
+//
+//	request param (path): id
+//	request body: model.RecordRequest
 func (h *Handler) UpsertRecord(c *gin.Context) {
 	var request model.RecordRequest
 	if err := c.BindJSON(&request); err != nil {
@@ -115,6 +128,9 @@ func (h *Handler) UpsertRecord(c *gin.Context) {
 	response.JSON(c, base.Success(http.StatusOK))
 }
 
+// DeleteRecord delete a record with the specified ID.
+//
+//	request param (path): id
 func (h *Handler) DeleteRecord(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {

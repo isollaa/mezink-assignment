@@ -25,7 +25,7 @@ var (
 	once sync.Once
 )
 
-// Get are responsible to load env and get data an return the struct
+// Get load env and return as Config
 func Get() Config {
 	once.Do(func() {
 		viper.SetConfigFile(".env")

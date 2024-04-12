@@ -25,18 +25,18 @@ func (p *Connection) RunMigration(conf Config) {
 		DatabaseName: conf.DBName,
 	})
 	if err != nil {
-		log.Fatal().Err(err).Msg("error postgres instance")
+		log.Fatal().Err(err).Msg("An error occurred on postgres instance")
 	}
 
 	mgr, err := migrate.NewWithDatabaseInstance("file://./migration", "postgres", driver)
 	if err != nil {
-		log.Fatal().Err(err).Msg("migrating failed")
+		log.Fatal().Err(err).Msg("An error occurred on initializing Migration instance")
 	}
 
 	err = mgr.Up()
 	if err != nil && err != migrate.ErrNoChange {
-		log.Fatal().Err(err).Msgf("An error occurred while syncing the database: %v", err)
+		log.Fatal().Err(err).Msg("An error occurred while syncing the database")
 	}
 
-	log.Info().Msg("PostgreSQL Migrate Finished...")
+	log.Info().Msg("PostgreSQL Migration Finished...")
 }
